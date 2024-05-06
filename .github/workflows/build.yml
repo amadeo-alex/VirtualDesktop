@@ -66,4 +66,4 @@ jobs:
         prerelease: true
         tag: "test tag"
         artifacts:
-          Test-Build.zip
+          Test-Build/Test-Build.zip
