@@ -345,8 +345,8 @@ public partial class VirtualDesktop
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"{nameof(TryGetAppUserModelId)} failed.");
-            Debug.WriteLine(ex);
+            Console.WriteLine($"{nameof(TryGetAppUserModelId)} failed.");
+            Console.WriteLine(ex);
         }
 
         appUserModelId = "";

@@ -38,14 +38,14 @@ partial class MainWindow
             this.Dispatcher.Invoke(() =>
             {
                 this.Desktops.Add(new VirtualDesktopViewModel(desktop));
-                Debug.WriteLine($"Created: {desktop.Name}");
+                Console.WriteLine($"Created: {desktop.Name}");
             });
         };
 
         VirtualDesktop.CurrentChanged += (_, args) =>
         {
             foreach (var desktop in this.Desktops) desktop.IsCurrent = desktop.Id == args.NewDesktop.Id;
-            Debug.WriteLine($"Switched: {args.OldDesktop.Name} -> {args.NewDesktop.Name}");
+            Console.WriteLine($"Switched: {args.OldDesktop.Name} -> {args.NewDesktop.Name}");
         };
 
         VirtualDesktop.Moved += (_, args) =>
@@ -53,7 +53,7 @@ partial class MainWindow
             this.Dispatcher.Invoke(() =>
             {
                 this.Desktops.Move(args.OldIndex, args.NewIndex);
-                Debug.WriteLine($"Moved: {args.OldIndex} -> {args.NewIndex}, {args.Desktop}");
+                Console.WriteLine($"Moved: {args.OldIndex} -> {args.NewIndex}, {args.Desktop}");
             });
         };
 
@@ -70,14 +70,14 @@ partial class MainWindow
         {
             var desktop = this.Desktops.FirstOrDefault(x => x.Id == args.Desktop.Id);
             if (desktop != null) desktop.Name = args.Name;
-            Debug.WriteLine($"Renamed: {args.Desktop}");
+            Console.WriteLine($"Renamed: {args.Desktop}");
         };
 
         VirtualDesktop.WallpaperChanged += (_, args) =>
         {
             var desktop = this.Desktops.FirstOrDefault(x => x.Id == args.Desktop.Id);
             if (desktop != null) desktop.WallpaperPath = new Uri(args.Path);
-            Debug.WriteLine($"Wallpaper changed: {args.Desktop}, {args.Path}");
+            Console.WriteLine($"Wallpaper changed: {args.Desktop}, {args.Path}");
         };
 
         var currentId = VirtualDesktop.Current.Id;
@@ -230,7 +230,7 @@ partial class MainWindow
         {
             if (it.Desktop.IsCurrent && it.Index > 0)
             {
-                Debug.WriteLine($"Moved: {it.Index} -> {it.Index - 1}");
+                Console.WriteLine($"Moved: {it.Index} -> {it.Index - 1}");
                 VirtualDesktop.Current.Move(it.Index - 1);
                 return;
             }
@@ -243,7 +243,7 @@ partial class MainWindow
         {
             if (it.Desktop.IsCurrent && (it.Index < (this.Desktops.Count - 1)))
             {
-                Debug.WriteLine($"Moved: {it.Index} -> {it.Index + 1}");
+                Console.WriteLine($"Moved: {it.Index} -> {it.Index + 1}");
                 VirtualDesktop.Current.Move(it.Index + 1);
                 return;
             }

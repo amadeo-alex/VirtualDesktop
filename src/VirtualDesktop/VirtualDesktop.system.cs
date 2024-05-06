@@ -38,10 +38,10 @@ partial class VirtualDesktop
         
         _provider = CreateProvider();
 
-        Debug.WriteLine($"*** {AssemblyInfo.Title} Library ***");
-        Debug.WriteLine($"Version:  {AssemblyInfo.VersionString}");
-        Debug.WriteLine($"OS Build: {OS.Build}");
-        Debug.WriteLine($"Provider: {_provider.GetType().Name}");
+        Console.WriteLine($"*** {AssemblyInfo.Title} Library ***");
+        Console.WriteLine($"Version:  {AssemblyInfo.VersionString}");
+        Console.WriteLine($"OS Build: {OS.Build}");
+        Console.WriteLine($"Provider: {_provider.GetType().Name}");
     }
 
     /// <summary>

@@ -55,22 +55,22 @@ internal class ComInterfaceAssemblyBuilder
                         var name = AssemblyName.GetAssemblyName(file.FullName);
                         if (name.Version >= _requireVersion)
                         {
-                            Debug.WriteLine($"Assembly found: {file.FullName}");
+                            Console.WriteLine($"Assembly found: {file.FullName}");
 #if !DEBUG
                             return Assembly.LoadFile(file.FullName);
 #else
-                            Debug.WriteLine($"Debug force assembly creation");
+                            Console.WriteLine($"Debug force assembly creation");
 #endif
                         }
                         else 
                         {
-                            Debug.WriteLine($"Outdated assembly: {name.Version} < {_requireVersion}");
+                            Console.WriteLine($"Outdated assembly: {name.Version} < {_requireVersion}");
                         }
                     }
                     catch (Exception ex)
                     {
-                        Debug.WriteLine("Failed to load assembly: ");
-                        Debug.WriteLine(ex);
+                        Console.WriteLine("Failed to load assembly: ");
+                        Console.WriteLine(ex);
 
                         File.Delete(file.FullName);
                     }
