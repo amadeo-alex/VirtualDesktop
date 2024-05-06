@@ -1,15 +1,13 @@
 name: Build
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 
 env:
   DOTNET_VERSION: 8.0.x
   BUILD_TARGET: .\src\VirtualDesktop.sln
+  BUILD_SAMPLE_TARGET: .\samples\VirtualDesktop.Showcase\VirtualDesktop.Showcase.csproj
 
 
 jobs:
@@ -29,3 +27,46 @@ jobs:
       
     - name: Build
       run: dotnet build ${{ env.BUILD_TARGET }} -c Release
+      
+    - name: Build2
+      run: dotnet build ${{ env.BUILD_SAMPLE_TARGET }} -c Release
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Test-Artifact
+        path: "D:\\a\\VirtualDesktop\\VirtualDesktop"
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [build]
+    permissions:
+      contents: write
+    steps:
+    - name: Create directories for Build Artifacts to download
+      run: |
+        mkdir Test-Build
+        ls -la
+    
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v3.0.2
+      with:
+        name: Test-Artifact
+        path: Test-Build
+
+
+    - name: Compress
+      run: |
+        cd Test-Build
+        ls -la
+        zip -r Test-Build.zip ./
+        
+    - name: Create Draft Release and Upload Build Artifacts
+      uses: ncipollo/release-action@v1.10.0
+      with:
+        name: "test name"
+        draft: true
+        prerelease: true
+        tag: "test tag"
+        artifacts:
+          Test-Build/Test-Build.zip
