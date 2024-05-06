@@ -7,6 +7,7 @@ on:
 env:
   DOTNET_VERSION: 8.0.x
   BUILD_TARGET: .\src\VirtualDesktop.sln
+  BUILD_SAMPLE_TARGET: .\samples\VirtualDesktop.Showcase\VirtualDesktop.Showcase.csproj
 
 
 jobs:
@@ -26,7 +27,9 @@ jobs:
       
     - name: Build
       run: dotnet build ${{ env.BUILD_TARGET }} -c Release
-
+      
+    - name: Build2
+      run: dotnet build ${{ env.BUILD_SAMPLE_TARGET }} -c Release
     
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
