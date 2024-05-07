@@ -39,11 +39,16 @@ internal static class IID
             .OrderByDescending(s => s.osBuild)
             .ToArray();
 
+        Console.WriteLine("\nlist of props:");
+        Console.WriteLine(string.Join('\n', orderedProps.ToList()));
+        Console.WriteLine("");
         // Find first prop with build version <= current OS version
         var selectedSettings = orderedProps.FirstOrDefault(p =>
             p.osBuild <= OS.Build
         );
         
+        Console.WriteLine($"selected prop: {selectedSettings}");
+
         if (selectedSettings == null)
         {
             var supportedBuilds = orderedProps.Select(v => v.osBuild).ToArray();

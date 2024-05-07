@@ -106,6 +106,9 @@ internal class ComInterfaceAssemblyBuilder
             .Cast<string>()
             .ToArray();
         var iids = IID.GetIIDs(interfaceNames);
+        Console.WriteLine("\niids:");
+        Console.WriteLine(string.Join('\n', iids));
+        Console.WriteLine("");
 
         // e.g.
         //   IVirtualDesktop
